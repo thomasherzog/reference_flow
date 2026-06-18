@@ -66,7 +66,13 @@ module croc_xilinx import croc_pkg::*; #(
 `endif
 
   output logic  uart_tx_o,
-  input  logic  uart_rx_i
+  input  logic  uart_rx_i,
+
+  output logic vga_hs,
+  output logic vga_vs,
+  output logic [4:0] vga_b,
+  output logic [5:0] vga_g,
+  output logic [4:0] vga_r
 );
 
   ////////////////////////
@@ -194,13 +200,13 @@ module croc_xilinx import croc_pkg::*; #(
   logic rtc_clk_d, rtc_clk_q;
   logic [15:0] counter_d, counter_q;
 
-  // Divide soc_clk (20 MHz) by 610 => ~32.768kHz RTC Clock
+  // Divide soc_clk (50.35 MHz) by 1536.560 => ~32.768kHz RTC Clock
   // TODO: does genesys 2 have a 32.768kHz reference clock?
   always_comb begin
     counter_d = counter_q + 1;
     rtc_clk_d = rtc_clk_q;
 
-    if(counter_q == 610) begin
+    if(counter_q == 1536) begin
       counter_d = '0;
       rtc_clk_d = ~rtc_clk_q;
     end
@@ -235,6 +241,11 @@ module croc_xilinx import croc_pkg::*; #(
   //////////////////
   logic  soc_testmode_i;
   assign soc_testmode_i = '0;
+  logic [15:0] vga_color;
+
+  assign vga_r = vga_color[15:11];
+  assign vga_g = vga_color[10:5];
+  assign vga_b = vga_color[4:0];
 
   croc_soc #(
     .GpioCount( GpioCount )
@@ -257,7 +268,11 @@ module croc_xilinx import croc_pkg::*; #(
 
     .gpio_i          ( soc_gpio_i        ),
     .gpio_o          ( soc_gpio_o        ),
-    .gpio_out_en_o   ( soc_gpio_out_en_o )
+    .gpio_out_en_o   ( soc_gpio_out_en_o ),
+
+    .vga_hsync_o(vga_hs),
+    .vga_vsync_o(vga_vs),
+    .vga_color_o(vga_color)
   );
 
 endmodule

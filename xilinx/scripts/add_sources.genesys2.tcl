@@ -1,11 +1,6 @@
-# Copyright (c) 2024 ETH Zurich and University of Bologna.
-# Licensed under the Apache License, Version 2.0, see LICENSE for details.
-# SPDX-License-Identifier: Apache-2.0
-#
 # This script was generated automatically by bender.
 set ROOT "../../.."
 
-# Package(tech_cells_generic) Target(all(any(fpga, tech_cells_generic_include_xilinx_xpm), not(tech_cells_generic_exclude_xilinx_xpm)))
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/tech_cells_generic/fpga/pad_functional_xilinx.sv \
     $ROOT/rtl/tech_cells_generic/fpga/tc_clk_xilinx.sv \
@@ -13,12 +8,10 @@ add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/tech_cells_generic/tc_sram_impl.sv \
 ]
 
-# Package(common_cells) Target(*)
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/common_cells/binary_to_gray.sv \
 ]
 
-# Package(common_cells) Target(not(all(vivado_ipx, xilinx)))
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/common_cells/cb_filter_pkg.sv \
     $ROOT/rtl/common_cells/cc_onehot.sv \
@@ -74,7 +67,6 @@ add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/common_cells/multiaddr_decode.sv \
 ]
 
-# Package(common_cells) Target(not(all(vivado_ipx, xilinx)))
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/common_cells/cb_filter.sv \
     $ROOT/rtl/common_cells/cdc_fifo_2phase.sv \
@@ -108,7 +100,6 @@ add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/common_cells/mem_to_banks.sv \
 ]
 
-# Package(obi) Target(*)
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/obi/obi_pkg.sv \
     $ROOT/rtl/obi/obi_intf.sv \
@@ -124,12 +115,10 @@ add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/obi/obi_xbar.sv \
 ]
 
-# Package(apb) Target(*)
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/apb/apb_pkg.sv \
 ]
 
-# Package(cve2) Target(*)
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/cve2/cve2_pkg.sv \
     $ROOT/rtl/cve2/cve2_alu.sv \
@@ -154,7 +143,6 @@ add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/cve2/cve2_core.sv \
 ]
 
-# Package(idma) Target(*)
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/idma/idma_pkg.sv \
     $ROOT/rtl/idma/idma_channel_coupler.sv \
@@ -170,7 +158,6 @@ add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/idma/croc_idma.sv \
 ]
 
-# Package(obi_peripherals) Target(*)
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/obi_uart/obi_uart_pkg.sv \
     $ROOT/rtl/obi_uart/obi_uart_baudgen.sv \
@@ -182,7 +169,6 @@ add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/obi_uart/obi_uart.sv \
 ]
 
-# Package(riscv-dbg) Target(*)
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/riscv-dbg/dm_pkg.sv \
     $ROOT/rtl/riscv-dbg/debug_rom/debug_rom.sv \
@@ -192,12 +178,10 @@ add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/riscv-dbg/dmi_cdc.sv \
 ]
 
-# Package(riscv-dbg) Target(not(all(bscane, xilinx)))
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/riscv-dbg/dmi_jtag_tap.sv \
 ]
 
-# Package(riscv-dbg) Target(*)
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/riscv-dbg/dm_sba.sv \
     $ROOT/rtl/riscv-dbg/dm_top.sv \
@@ -205,7 +189,29 @@ add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/riscv-dbg/dm_obi_top.sv \
 ]
 
-# Package(croc_soc) Target(*)
+add_files -norecurse -fileset [current_fileset] [list \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/address_generator.sv \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/color_generator.sv \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/glyph_ram_wrapper.sv \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/glyph_rom_wrapper.sv \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/obi_sub.sv \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/socc_on_croc.sv \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/sync_generator.sv \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/text_ram_wrapper.sv \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/font_rom.sv \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/glyph_rom.sv \
+]
+
+add_files -norecurse -fileset [current_fileset] [list \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/testing/obi_manager.sv \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/testing/obi_tester.sv \
+]
+
+add_files -norecurse -fileset [current_fileset] [list \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/target/fpga/top.sv \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/target/fpga/plle2_adv.sv \
+]
+
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/croc_pkg.sv \
     $ROOT/rtl/user_pkg.sv \
@@ -215,7 +221,6 @@ add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/obi_timer/obi_timer_reg_pkg.sv \
 ]
 
-# Package(croc_soc) Target(not(netlist_yosys))
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/core_wrap.sv \
     $ROOT/rtl/bootrom/bootrom.sv \
@@ -229,13 +234,13 @@ add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/croc_soc.sv \
 ]
 
-# Package(croc_soc) Target(genesys2)
 add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/xilinx/hw/croc_xilinx.sv \
     $ROOT/xilinx/hw/fan_ctrl.sv \
 ]
 
 set_property include_dirs [list \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/include \
     $ROOT/rtl/apb/include \
     $ROOT/rtl/common_cells/include \
     $ROOT/rtl/cve2/include \
@@ -244,6 +249,7 @@ set_property include_dirs [list \
 ] [current_fileset]
 
 set_property include_dirs [list \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/include \
     $ROOT/rtl/apb/include \
     $ROOT/rtl/common_cells/include \
     $ROOT/rtl/cve2/include \
