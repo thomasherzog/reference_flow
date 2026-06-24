@@ -1,5 +1,6 @@
 #include "vga.h"
 
+static volatile uint16_t* const VGA_COLOR_PALETTE_BUFFER = (volatile uint16_t*) (VGA_BASE_ADDRESS);
 static volatile uint8_t* const VGA_CONFIG_BUFFER = (volatile uint8_t*) (VGA_BASE_ADDRESS + 0x20);
 static volatile uint8_t* const VGA_INTERRUPT_BUFFER = (volatile uint8_t*) (VGA_BASE_ADDRESS + 0x21);
 static volatile uint16_t* const VGA_TEXT_BUFFER = (volatile uint16_t*) (VGA_BASE_ADDRESS + VGA_RAM_SIZE);
@@ -134,4 +135,10 @@ void vga_load_glyph(uint8_t char_code, const glyph_data_t *data) {
 
 void vga_interrupt_clear() {
     *VGA_INTERRUPT_BUFFER &= ~(1);
+}
+
+// Color Palette Management
+
+void vga_set_color_palette(uint8_t color_index, uint16_t color_data) {
+    VGA_COLOR_PALETTE_BUFFER[color_index] = color_data;
 }

@@ -38,10 +38,15 @@ int main() {
 
     vga_set_glyph_ram_enable(true);
     vga_set_blink_disable(true);
-    vga_set_cursor_pos(2, 2);
     vga_clear(VGA_COLOR_RED, VGA_COLOR_YELLOW);
-    vga_print("Hello World!", VGA_COLOR_RED, VGA_COLOR_YELLOW);
 
+    for(int y = 2; y < 29; ++y) {
+        for (int x = 2 + (y % 16); x < (80 - 16); x += 16) {
+            vga_set_cursor_pos(x, y);
+            vga_print("Hello World!", VGA_COLOR_RED, VGA_COLOR_YELLOW);
+        }
+    }
+    
     wfi();
     wfi();
 

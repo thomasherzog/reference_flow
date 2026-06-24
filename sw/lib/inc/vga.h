@@ -68,3 +68,7 @@ void vga_load_glyph(uint8_t char_code, const glyph_data_t *data);
 // Interrupt Handling
 
 void vga_interrupt_clear();
+
+// Color Palette Management
+
+void vga_set_color_palette(uint8_t color_index, uint16_t color_data);
