@@ -25,7 +25,8 @@ packages:
     version: null
     source:
       Path: rtl/cve2
-    dependencies: []
+    dependencies:
+    - common_cells
   idma:
     revision: null
     version: null
@@ -57,6 +58,15 @@ packages:
       Path: rtl/riscv-dbg
     dependencies:
     - common_cells
+    - tech_cells_generic
+  socc_on_croc:
+    revision: 3b2ef00e7ff6b8d5a266015a8223168d67472368
+    version: null
+    source:
+      Git: https://github.com/mikailgedik/socc_on_croc.git
+    dependencies:
+    - common_cells
+    - obi
     - tech_cells_generic
   tech_cells_generic:
     revision: null

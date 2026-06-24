@@ -56,6 +56,7 @@ run_cmd() {
 
 build_verilator() {
     run_cmd "echo [INFO][Verilator] Build Verilator"
+    # TODO why timescale errors?
     run_cmd "verilator \
         -Wno-fatal \
         -Wno-style \
@@ -64,6 +65,7 @@ build_verilator() {
         -Wno-WIDTHTRUNC \
         -Wno-WIDTHCONCAT \
         -Wno-ASCRANGE \
+        -Wno-TIMESCALEMOD \
         --binary \
         -j 0 \
         --timing \

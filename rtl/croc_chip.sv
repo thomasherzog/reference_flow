@@ -40,25 +40,25 @@ module croc_chip import croc_pkg::*; #() (
   inout  wire gpio15_io,
   inout  wire gpio16_io,
   inout  wire gpio17_io,
-  inout  wire gpio18_io,
-  inout  wire gpio19_io,
-  inout  wire gpio20_io,
-  inout  wire gpio21_io,
-  inout  wire gpio22_io,
-  inout  wire gpio23_io,
-  inout  wire gpio24_io,
-  inout  wire gpio25_io,
-  inout  wire gpio26_io,
-  inout  wire gpio27_io,
-  inout  wire gpio28_io,
-  inout  wire gpio29_io,
-  inout  wire gpio30_io,
-  inout  wire gpio31_io,
-  output wire unused0_o,
-  output wire unused1_o,
-  output wire unused2_o,
-  output wire unused3_o,
-
+  output wire vga_hsync_o,
+  output wire vga_vsync_o,
+  output wire vga0_o,
+  output wire vga1_o,
+  output wire vga2_o,
+  output wire vga3_o,
+  output wire vga4_o,
+  output wire vga5_o,
+  output wire vga6_o,
+  output wire vga7_o,
+  output wire vga8_o,
+  output wire vga9_o,
+  output wire vgaA_o,
+  output wire vgaB_o,
+  output wire vgaC_o,
+  output wire vgaD_o,
+  output wire vgaE_o,
+  output wire vgaF_o,
+  
   inout wire VDD,
   inout wire VSS,
   inout wire VDDIO,
@@ -77,11 +77,14 @@ module croc_chip import croc_pkg::*; #() (
 
     logic soc_status_o;
 
-    localparam int unsigned GpioCount = 32;
+    localparam int unsigned GpioCount = 18;
 
     logic [GpioCount-1:0] soc_gpio_i;
     logic [GpioCount-1:0] soc_gpio_o;
     logic [GpioCount-1:0] soc_gpio_out_en_o; // Output enable signal; 0 -> input, 1 -> output
+
+    logic vga_hsync_o, vga_vsync_o;
+    logic [15:0] vga_color_o;
 
     sg13cmos5l_IOPadIn        pad_clk_i        (.pad(clk_i),        .p2c(soc_clk_i));
     sg13cmos5l_IOPadIn        pad_rst_ni       (.pad(rst_ni),       .p2c(soc_rst_ni));
@@ -115,25 +118,24 @@ module croc_chip import croc_pkg::*; #() (
     sg13cmos5l_IOPadInOut30mA pad_gpio14_io    (.pad(gpio14_io), .c2p(soc_gpio_o[14]), .p2c(soc_gpio_i[14]), .c2p_en(soc_gpio_out_en_o[14]));
     sg13cmos5l_IOPadInOut30mA pad_gpio15_io    (.pad(gpio15_io), .c2p(soc_gpio_o[15]), .p2c(soc_gpio_i[15]), .c2p_en(soc_gpio_out_en_o[15]));
     sg13cmos5l_IOPadInOut30mA pad_gpio16_io    (.pad(gpio16_io), .c2p(soc_gpio_o[16]), .p2c(soc_gpio_i[16]), .c2p_en(soc_gpio_out_en_o[16]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio17_io    (.pad(gpio17_io), .c2p(soc_gpio_o[17]), .p2c(soc_gpio_i[17]), .c2p_en(soc_gpio_out_en_o[17]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio18_io    (.pad(gpio18_io), .c2p(soc_gpio_o[18]), .p2c(soc_gpio_i[18]), .c2p_en(soc_gpio_out_en_o[18]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio19_io    (.pad(gpio19_io), .c2p(soc_gpio_o[19]), .p2c(soc_gpio_i[19]), .c2p_en(soc_gpio_out_en_o[19]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio20_io    (.pad(gpio20_io), .c2p(soc_gpio_o[20]), .p2c(soc_gpio_i[20]), .c2p_en(soc_gpio_out_en_o[20]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio21_io    (.pad(gpio21_io), .c2p(soc_gpio_o[21]), .p2c(soc_gpio_i[21]), .c2p_en(soc_gpio_out_en_o[21]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio22_io    (.pad(gpio22_io), .c2p(soc_gpio_o[22]), .p2c(soc_gpio_i[22]), .c2p_en(soc_gpio_out_en_o[22]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio23_io    (.pad(gpio23_io), .c2p(soc_gpio_o[23]), .p2c(soc_gpio_i[23]), .c2p_en(soc_gpio_out_en_o[23]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio24_io    (.pad(gpio24_io), .c2p(soc_gpio_o[24]), .p2c(soc_gpio_i[24]), .c2p_en(soc_gpio_out_en_o[24]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio25_io    (.pad(gpio25_io), .c2p(soc_gpio_o[25]), .p2c(soc_gpio_i[25]), .c2p_en(soc_gpio_out_en_o[25]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio26_io    (.pad(gpio26_io), .c2p(soc_gpio_o[26]), .p2c(soc_gpio_i[26]), .c2p_en(soc_gpio_out_en_o[26]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio27_io    (.pad(gpio27_io), .c2p(soc_gpio_o[27]), .p2c(soc_gpio_i[27]), .c2p_en(soc_gpio_out_en_o[27]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio28_io    (.pad(gpio28_io), .c2p(soc_gpio_o[28]), .p2c(soc_gpio_i[28]), .c2p_en(soc_gpio_out_en_o[28]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio29_io    (.pad(gpio29_io), .c2p(soc_gpio_o[29]), .p2c(soc_gpio_i[29]), .c2p_en(soc_gpio_out_en_o[29]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio30_io    (.pad(gpio30_io), .c2p(soc_gpio_o[30]), .p2c(soc_gpio_i[30]), .c2p_en(soc_gpio_out_en_o[30]));
-    sg13cmos5l_IOPadInOut30mA pad_gpio31_io    (.pad(gpio31_io), .c2p(soc_gpio_o[31]), .p2c(soc_gpio_i[31]), .c2p_en(soc_gpio_out_en_o[31]));
-    sg13cmos5l_IOPadOut16mA   pad_unused0_o    (.pad(unused0_o), .c2p(soc_status_o));
-    sg13cmos5l_IOPadOut16mA   pad_unused1_o    (.pad(unused1_o), .c2p(soc_status_o));
-    sg13cmos5l_IOPadOut16mA   pad_unused2_o    (.pad(unused2_o), .c2p(soc_status_o));
-    sg13cmos5l_IOPadOut16mA   pad_unused3_o    (.pad(unused3_o), .c2p(soc_status_o));
+    sg13g2_IOPadOut16mA   pad_vga_hsync_o  (.pad(vga_hsync_o), .c2p(vga_hsync_o));
+    sg13g2_IOPadOut16mA   pad_vga_vsync_o  (.pad(vga_vsync_o), .c2p(vga_vsync_o));
+    sg13g2_IOPadOut16mA   pad_vga0_o       (.pad(vga0_o), .c2p(vga_color_o[0]));
+    sg13g2_IOPadOut16mA   pad_vga1_o       (.pad(vga1_o), .c2p(vga_color_o[1]));
+    sg13g2_IOPadOut16mA   pad_vga2_o       (.pad(vga2_o), .c2p(vga_color_o[2]));
+    sg13g2_IOPadOut16mA   pad_vga3_o       (.pad(vga3_o), .c2p(vga_color_o[3]));
+    sg13g2_IOPadOut16mA   pad_vga4_o       (.pad(vga4_o), .c2p(vga_color_o[4]));
+    sg13g2_IOPadOut16mA   pad_vga5_o       (.pad(vga5_o), .c2p(vga_color_o[5]));
+    sg13g2_IOPadOut16mA   pad_vga6_o       (.pad(vga6_o), .c2p(vga_color_o[6]));
+    sg13g2_IOPadOut16mA   pad_vga7_o       (.pad(vga7_o), .c2p(vga_color_o[7]));
+    sg13g2_IOPadOut16mA   pad_vga8_o       (.pad(vga8_o), .c2p(vga_color_o[8]));
+    sg13g2_IOPadOut16mA   pad_vga9_o       (.pad(vga9_o), .c2p(vga_color_o[9]));
+    sg13g2_IOPadOut16mA   pad_vgaA_o       (.pad(vgaA_o), .c2p(vga_color_o[10]));
+    sg13g2_IOPadOut16mA   pad_vgaB_o       (.pad(vgaB_o), .c2p(vga_color_o[11]));
+    sg13g2_IOPadOut16mA   pad_vgaC_o       (.pad(vgaC_o), .c2p(vga_color_o[12]));
+    sg13g2_IOPadOut16mA   pad_vgaD_o       (.pad(vgaD_o), .c2p(vga_color_o[13]));
+    sg13g2_IOPadOut16mA   pad_vgaE_o       (.pad(vgaE_o), .c2p(vga_color_o[14]));
+    sg13g2_IOPadOut16mA   pad_vgaF_o       (.pad(vgaF_o), .c2p(vga_color_o[15]));
 
     (* dont_touch = "true" *)sg13cmos5l_IOPadVdd pad_vdd0();
     (* dont_touch = "true" *)sg13cmos5l_IOPadVdd pad_vdd1();
@@ -176,7 +178,11 @@ module croc_chip import croc_pkg::*; #() (
 
     .gpio_i         ( soc_gpio_i        ),
     .gpio_o         ( soc_gpio_o        ),
-    .gpio_out_en_o  ( soc_gpio_out_en_o )
+    .gpio_out_en_o  ( soc_gpio_out_en_o ),
+
+    .vga_hsync_o(vga_hsync_o),
+    .vga_vsync_o(vga_vsync_o),
+    .vga_color_o(vga_color_o)
   );
 
 endmodule

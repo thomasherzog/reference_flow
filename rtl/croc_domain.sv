@@ -40,7 +40,12 @@ module croc_domain import croc_pkg::*; #(
   output mgr_obi_rsp_t user_mgr_obi_rsp_o,
 
   input  logic [NumExternalIrqs-1:0] interrupts_i,
-  output logic core_busy_o
+
+  output logic core_busy_o,
+
+  output logic vga_hsync_o,
+  output logic vga_vsync_o,
+  output logic [15:0] vga_color_o
 );
 
   // -----------------
@@ -57,6 +62,7 @@ module croc_domain import croc_pkg::*; #(
   logic uart_irq;
   logic gpio_irq;
   logic idma_irq;
+  logic vga_irq;
   logic [15:0] interrupts;
   always_comb begin
     interrupts    = '0;
@@ -64,7 +70,9 @@ module croc_domain import croc_pkg::*; #(
     interrupts[1] = uart_irq;
     interrupts[2] = gpio_irq;
     interrupts[3] = idma_irq;
-    interrupts[4+:NumExternalIrqs] = interrupts_i;
+    interrupts[4] = vga_irq;
+
+    interrupts[5+:NumExternalIrqs] = interrupts_i;
   end
 
   // ----------------------------
@@ -193,6 +201,10 @@ module croc_domain import croc_pkg::*; #(
   sbr_obi_req_t bootrom_obi_req;
   sbr_obi_rsp_t bootrom_obi_rsp;
 
+  // Socc bus
+  sbr_obi_req_t socc_obi_req;
+  sbr_obi_rsp_t socc_obi_rsp;
+
   // Fanout to individual peripherals
   assign error_obi_req                     = all_periph_obi_req[PeriphError];
   assign all_periph_obi_rsp[PeriphError]   = error_obi_rsp;
@@ -212,7 +224,8 @@ module croc_domain import croc_pkg::*; #(
   assign all_periph_obi_rsp[PeriphClint]   = clint_obi_rsp;
   assign bootrom_obi_req                   = all_periph_obi_req[PeriphBootrom];
   assign all_periph_obi_rsp[PeriphBootrom] = bootrom_obi_rsp;
-
+  assign socc_obi_req                      = all_periph_obi_req[PeriphiSocc];
+  assign all_periph_obi_rsp[PeriphiSocc]   = socc_obi_rsp;
 
   // -----------------
   // Core
@@ -651,6 +664,22 @@ module croc_domain import croc_pkg::*; #(
     .rst_ni,
     .obi_req_i ( bootrom_obi_req ),
     .obi_rsp_o ( bootrom_obi_rsp )
+  );
+
+   socc_on_croc #(
+    .ObiCfg      ( SbrObiCfg     ),
+    .obi_req_t   ( sbr_obi_req_t ),
+    .obi_rsp_t   ( sbr_obi_rsp_t ),
+    .OBI_ADDRESS_OFFSET(get_periph_start_addr(PeriphiSocc))
+  ) i_socc_on_croc (
+    .clk_i (clk_i),
+    .rst_ni(rst_ni),
+    .obi_req_i(socc_obi_req),
+    .obi_rsp_o(socc_obi_rsp),
+    .hsync_o(vga_hsync_o),
+    .vsync_o(vga_vsync_o),
+    .color_o(vga_color_o),
+    .frame_done_interrupt_o(vga_irq)
   );
 
   // Peripheral space error subordinate

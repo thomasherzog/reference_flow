@@ -1,3 +1,4 @@
++incdir+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/include
 +incdir+../rtl/apb/include
 +incdir+../rtl/common_cells/include
 +incdir+../rtl/cve2/include
@@ -162,6 +163,20 @@
 ../rtl/riscv-dbg/dmi_jtag.sv
 ../rtl/riscv-dbg/dm_obi_top.sv
 ../rtl/riscv-dbg/tb/jtag_test_simple.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/address_generator.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/color_generator.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/glyph_ram_wrapper.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/glyph_rom_wrapper.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/obi_sub.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/socc_on_croc.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/sync_generator.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/text_ram_wrapper.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/font_rom.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/glyph_rom.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/testing/obi_manager.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/testing/obi_tester.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/target/sim/rtl/socc_on_croc_utils_pkg.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/target/sim/rtl/tb_socc_on_croc.sv
 ../rtl/croc_pkg.sv
 ../rtl/user_pkg.sv
 ../rtl/soc_ctrl/soc_ctrl_regs_pkg.sv

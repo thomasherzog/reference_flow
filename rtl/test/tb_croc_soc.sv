@@ -9,9 +9,9 @@
 `define TRACE_WAVE
 
 module tb_croc_soc #(
-  parameter int unsigned GpioCount = 32
+  parameter int unsigned GpioCount = 26
 );
-
+  import socc_on_croc_utils_pkg::DelayImpl; 
   import tb_croc_pkg::*;
 
   // Signals fully controlled by the VIP
@@ -33,6 +33,9 @@ module tb_croc_soc #(
   logic [GpioCount-1:0] gpio_in;
   logic [GpioCount-1:0] gpio_out;
   logic [GpioCount-1:0] gpio_out_en;
+
+  logic vga_hsync_o, vga_vsync_o;
+  logic [15:0] vga_color_o;
 
   // Signals controlled by the testbench
 
@@ -109,7 +112,11 @@ module tb_croc_soc #(
     .uart_tx_o     ( uart_tx     ),
     .gpio_i        ( gpio_in     ),
     .gpio_o        ( gpio_out    ),
-    .gpio_out_en_o ( gpio_out_en )
+    .gpio_out_en_o ( gpio_out_en ),
+
+    .vga_hsync_o(vga_hsync_o),
+    .vga_vsync_o(vga_vsync_o),
+    .vga_color_o(vga_color_o)
   );
 
   /////////////////
@@ -117,6 +124,10 @@ module tb_croc_soc #(
   /////////////////
 
   logic [31:0] tb_data;
+
+  event start_parallel_tasks;
+  
+  bit jtag_finished = 0;
 
   initial begin
     $timeformat(-9, 0, "ns", 12); // 1: scale (ns=-9), 2: decimals, 3: suffix, 4: print-field width
@@ -143,13 +154,32 @@ module tb_croc_soc #(
     // resume core
     i_vip.jtag_resume();
 
-    // wait for non-zero return value (written into core status register)
+    -> start_parallel_tasks;
+  end
+
+  initial begin
+    @(start_parallel_tasks); 
     $display("@%t | [CORE] Wait for end of code...", $time);
     i_vip.jtag_wait_for_eoc(tb_data);
-
-    // finish simulation
     repeat(50) @(posedge sys_clk);
-    $finish();
+    jtag_finished = 1; 
+  end
+
+  initial begin
+    @(start_parallel_tasks); 
+    
+    for (int i = 0; i < 60; i++) begin
+      DelayImpl#(.T_CLK(ClkPeriodSys))::capture_image($sformatf("./vga_out/output-%03x.bmp", i), vga_color_o, vga_hsync_o, vga_vsync_o);
+      $display("@%t | [VGA] Frame %0d captured", $time, i + 1);
+    end
+  end
+
+  initial begin
+    wait(jtag_finished);
+    
+    $display("@%t | [TB] Both tasks completed.", $time);
+    repeat(50) @(posedge sys_clk);
+    $finish;
   end
 
   ////////////////

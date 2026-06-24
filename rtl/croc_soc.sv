@@ -25,7 +25,11 @@ module croc_soc import croc_pkg::*; #(
 
   input  logic [GpioCount-1:0] gpio_i,       // Input from GPIO pins
   output logic [GpioCount-1:0] gpio_o,       // Output to GPIO pins
-  output logic [GpioCount-1:0] gpio_out_en_o // Output enable signal; 0 -> input, 1 -> output
+  output logic [GpioCount-1:0] gpio_out_en_o, // Output enable signal; 0 -> input, 1 -> output
+
+  output logic vga_hsync_o,
+  output logic vga_vsync_o,
+  output logic [15:0] vga_color_o
 );
 
   logic synced_rst_n;
@@ -81,7 +85,11 @@ croc_domain #(
   .user_mgr_obi_rsp_o  ( user_mgr_obi_rsp ),
 
   .interrupts_i ( interrupts ),
-  .core_busy_o  ( status_o   )
+  .core_busy_o  ( status_o   ),
+
+  .vga_hsync_o(vga_hsync_o),
+  .vga_vsync_o(vga_vsync_o),
+  .vga_color_o(vga_color_o)
 );
 
 user_domain #(
