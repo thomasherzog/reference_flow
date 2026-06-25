@@ -11,7 +11,12 @@
 
 int main() {
     uart_init();
-    printf("Hello World from Croc!\n");
+    printf("Hello World from socc on croc!\n");
     uart_write_flush();
+
+    volatile char* authors = (volatile char*) (USER_ROM_BASE_ADDR);
+    printf("<3 from %s", authors);
+    uart_write_flush();
+
     return 0;
 }

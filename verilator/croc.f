@@ -192,6 +192,7 @@
 ../rtl/obi_timer/obi_timer.sv
 ../rtl/croc_domain.sv
 ../rtl/user_domain.sv
+../rtl/user_domain/user_author_rom.sv
 ../rtl/croc_soc.sv
 ../rtl/croc_chip.sv
 ../rtl/test/tb_croc_pkg.sv

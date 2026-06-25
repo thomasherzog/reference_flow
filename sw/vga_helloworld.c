@@ -18,17 +18,16 @@ int main() {
     
     wfi();
 
-    vga_set_cursor_pos(2, 2);
-    vga_print("Hello, VGA Text Mode! \x01 \x02 \0", VGA_COLOR_RED, VGA_COLOR_BLUE);
-
+    vga_set_cursor_pos(27, 12);
+    vga_print("Hello, VGA Text Mode! \x01 \x02 \0", VGA_COLOR_YELLOW, VGA_COLOR_BLUE);
     
     for(int x = 0; x < 8; ++x) {
-        vga_set_cursor_pos(2+x, 4);
+        vga_set_cursor_pos(27+x, 14);
         vga_print("\xDB", x, VGA_COLOR_BLACK);
     }    
 
     for(int x = 0; x < 8; ++x) {
-        vga_set_cursor_pos(2+x, 6);
+        vga_set_cursor_pos(27+x, 16);
         vga_print("\xDB", (x + 8), VGA_COLOR_BLACK);
     }    
 
