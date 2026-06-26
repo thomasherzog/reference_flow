@@ -195,6 +195,7 @@ add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/glyph_ram_wrapper.sv \
     $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/glyph_rom_wrapper.sv \
     $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/obi_sub.sv \
+    $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/ram_muxer.sv \
     $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/socc_on_croc.sv \
     $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/sync_generator.sv \
     $ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/text_ram_wrapper.sv \
@@ -231,6 +232,7 @@ add_files -norecurse -fileset [current_fileset] [list \
     $ROOT/rtl/obi_timer/obi_timer.sv \
     $ROOT/rtl/croc_domain.sv \
     $ROOT/rtl/user_domain.sv \
+    $ROOT/rtl/user_domain/user_author_rom.sv \
     $ROOT/rtl/croc_soc.sv \
 ]
 
@@ -274,4 +276,3 @@ set_property verilog_define [list \
     TARGET_XILINX \
     COMMON_CELLS_ASSERTS_OFF=1 \
 ] [current_fileset -simset]
-
