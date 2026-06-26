@@ -56,19 +56,22 @@ source scripts/power_connect.tcl
 utl::report "###############################################################################"
 utl::report "# 01-02: Core and Die Area"
 utl::report "###############################################################################"
+
+# These are the dimensions for VLSI 2!
 # Dimensions:                          [um]
-#   final chip size (4sqmm) 2000.0 x 2000.0
+#   final chip size         2500.0 x 2000.0
 #   seal ring thickness       42.0 ,   42.0 x2
 #   bonding pad               70.0 ,   70.0 x2
 #   io cell depth            180.0 ,  180.0 x2
 #   ---------------------------------------
-#   -> OR die area          1916.0 x 1916.0
-#   -> OR core area         1416.0 x 1416.0
+#   -> OR die area          2416.0 x 1916.0
 # The sealring is added after OpenROAD
 # hence the OR die area is the final chip size minus the sealring thickness on each side
 
+# FINAL CHIP SIZE - 2 * SEAL RING
+set chipW    2416; # OR die width (left to right)
 set chipH    1916; # OR die height (top to bottom)
-set chipW    1916; # OR die width (left to right)
+
 set padD      180; # pad depth (edge to core)
 set padW       80; # pad width (beachfront)
 set padBond    70; # bonding pad size
@@ -148,8 +151,9 @@ set bankY [expr $floor_topY - $RamSize512x32_H]
 placeInstance $bank0_sram0 $bank0X $bankY R0
 
 # Bank1: top-right, pins facing down
-set bank1X [expr $floor_rightX - $RamSize512x32_W]
-placeInstance $bank1_sram0 $bank1X $bankY R0
+set bank1X $floor_leftX
+set bank1Y [expr $floor_topY - 2*$RamSize512x32_H-2*$sramHaloY]
+placeInstance $bank1_sram0 $bank1X $bank1Y R0
 
 utl::report "SRAM macro box: width ${RamSize512x32_W} height ${RamSize512x32_H}"
 utl::report "SRAM bank0 bbox: ($bank0X, $bankY) - ([expr {$bank0X + $RamSize512x32_W}], [expr {$bankY + $RamSize512x32_H}]) R0"
@@ -157,6 +161,55 @@ utl::report "SRAM bank1 bbox: ($bank1X, $bankY) - ([expr {$bank1X + $RamSize512x
 utl::report "SRAM horizontal gaps to core boundary: left [expr {$bank0X - $core_leftX}] between [expr {$bank1X - ($bank0X + $RamSize512x32_W)}] right [expr {$core_rightX - ($bank1X + $RamSize512x32_W)}]"
 utl::report "SRAM vertical gap to core boundary: top [expr {$core_topY - ($bankY + $RamSize512x32_H)}]"
 utl::report "SRAM row-cut halo: x $sramHaloX y $sramHaloY"
+
+# ============
+# SOCC ON CROC
+# ============
+
+
+# Glyph RAM 1
+set socconcroc_gr_x $floor_leftX
+set socconcroc_gr_y [expr $floor_bottomY + 2 * $sramHaloY + $RamSize512x32_H ]
+placeInstance $socconcroc_sram_glyph0 $socconcroc_gr_x $socconcroc_gr_y R0
+
+# Glyph RAM 2
+set socconcroc_gr_x [expr $floor_leftX + + 2 * $sramHaloX + $RamSize512x32_W]
+set socconcroc_gr_y [expr $floor_bottomY + 2 * $sramHaloY + $RamSize512x32_H ]
+placeInstance $socconcroc_sram_glyph1 $socconcroc_gr_x $socconcroc_gr_y R0
+
+# Glyph RAM 3
+set socconcroc_gr_x $floor_leftX
+set socconcroc_gr_y $floor_bottomY
+placeInstance $socconcroc_sram_glyph2 $socconcroc_gr_x $socconcroc_gr_y R0
+
+# Glyph RAM 4
+set socconcroc_gr_x [expr $floor_leftX + + 2 * $sramHaloX + $RamSize512x32_W]
+set socconcroc_gr_y $floor_bottomY
+placeInstance $socconcroc_sram_glyph3 $socconcroc_gr_x $socconcroc_gr_y R0
+
+
+
+
+# Text RAM 1
+set socconcroc_tr_x [expr $floor_rightX - 2*$RamSize512x32_H - 2*$sramHaloX]
+set socconcroc_tr_y [ expr $floor_bottomY + $RamSize512x32_W + 2*$sramHaloY ]
+placeInstance $socconcroc_sram_text0 $socconcroc_tr_x $socconcroc_tr_y R90
+
+
+# Text RAM 2
+set socconcroc_tr_x [expr $floor_rightX - $RamSize512x32_H]
+set socconcroc_tr_y [expr $floor_bottomY + $RamSize512x32_W + 2*$sramHaloY ]
+placeInstance $socconcroc_sram_text1 $socconcroc_tr_x $socconcroc_tr_y R90
+
+# Text RAM 3
+set socconcroc_tr_x [expr $floor_rightX - 2*$RamSize512x32_H - 2*$sramHaloX]
+set socconcroc_tr_y $floor_bottomY
+placeInstance $socconcroc_sram_text2 $socconcroc_tr_x $socconcroc_tr_y R90
+
+# Text RAM 4
+set socconcroc_tr_x [expr $floor_rightX - $RamSize512x32_H]
+set socconcroc_tr_y $floor_bottomY
+placeInstance $socconcroc_sram_text3 $socconcroc_tr_x $socconcroc_tr_y R90
 
 # defined in init_tech.tcl
 insertTapCells

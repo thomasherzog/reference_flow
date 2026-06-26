@@ -96,7 +96,6 @@ generate_flist() {
         -t ihp13 \
         -t rtl \
         -t synthesis \
-        -D VERILATOR=1 \
         -D SYNTHESIS=1 \
         -D COMMON_CELLS_ASSERTS_OFF=1 \
         > src/croc.flist"

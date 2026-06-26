@@ -39,5 +39,6 @@ int main() {
 
     wfi();
     wfi();
+    wfi();
     return 0;
 }

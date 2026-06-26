@@ -35,8 +35,6 @@ int main() {
     set_global_irq_enable(1);
     vga_set_interrupt_enable(true);
     
-    wfi();
-
     for(int i = 0; i < 16; ++i) {
         vga_set_color_palette(i, rainbow_rgb565[i]);
     }
@@ -50,6 +48,7 @@ int main() {
         vga_print("\xDB", (x % 16), VGA_COLOR_BLACK);
     }
 
+    wfi();
     wfi();
     wfi();
     

@@ -168,6 +168,7 @@
 ../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/glyph_ram_wrapper.sv
 ../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/glyph_rom_wrapper.sv
 ../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/obi_sub.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/ram_muxer.sv
 ../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/socc_on_croc.sv
 ../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/sync_generator.sv
 ../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/text_ram_wrapper.sv
@@ -190,9 +191,9 @@
 ../rtl/gpio/gpio.sv
 ../rtl/clint/clint.sv
 ../rtl/obi_timer/obi_timer.sv
+../rtl/user_domain/user_author_rom.sv
 ../rtl/croc_domain.sv
 ../rtl/user_domain.sv
-../rtl/user_domain/user_author_rom.sv
 ../rtl/croc_soc.sv
 ../rtl/croc_chip.sv
 ../rtl/test/tb_croc_pkg.sv

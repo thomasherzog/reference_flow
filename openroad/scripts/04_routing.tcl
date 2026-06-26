@@ -50,7 +50,7 @@ set_routing_layers -signal Metal2-TopMetal1 -clock Metal2-TopMetal1
 utl::report "Global route"
 global_route -guide_file ${report_dir}/04_${proj_name}_route.guide \
     -congestion_report_file ${report_dir}/04_${proj_name}_route_congestionrpt \
-    -allow_congestion
+    -allow_congestion -verbose
 # Default params but -allow_congestion
 # It continues even if it didn't find a solution (may be able to fix afterwards)
 
@@ -104,7 +104,7 @@ detailed_route -output_drc ${report_dir}/04_${proj_name}_route_drc.rpt \
                -drc_report_iter_step 5 \
                -save_guide_updates \
                -clean_patches \
-               -droute_end_iter 20 \
+               -droute_end_iter 35 \
                -verbose 1
 
 utl::report "Saving detailed route"

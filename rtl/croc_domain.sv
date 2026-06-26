@@ -63,7 +63,9 @@ module croc_domain import croc_pkg::*; #(
   logic gpio_irq;
   logic idma_irq;
   logic vga_irq;
+  
   logic [15:0] interrupts;
+
   always_comb begin
     interrupts    = '0;
     interrupts[0] = obi_timer_irq;
@@ -208,22 +210,31 @@ module croc_domain import croc_pkg::*; #(
   // Fanout to individual peripherals
   assign error_obi_req                     = all_periph_obi_req[PeriphError];
   assign all_periph_obi_rsp[PeriphError]   = error_obi_rsp;
+
   assign dbg_mem_obi_req                   = all_periph_obi_req[PeriphDebug];
   assign all_periph_obi_rsp[PeriphDebug]   = dbg_mem_obi_rsp;
+
   assign soc_ctrl_obi_req                  = all_periph_obi_req[PeriphSocCtrl];
   assign all_periph_obi_rsp[PeriphSocCtrl] = soc_ctrl_obi_rsp;
+
   assign uart_obi_req                      = all_periph_obi_req[PeriphUart];
   assign all_periph_obi_rsp[PeriphUart]    = uart_obi_rsp;
+
   assign gpio_obi_req                      = all_periph_obi_req[PeriphGpio];
   assign all_periph_obi_rsp[PeriphGpio]    = gpio_obi_rsp;
+
   assign timer_obi_req                     = all_periph_obi_req[PeriphTimer];
   assign all_periph_obi_rsp[PeriphTimer]   = timer_obi_rsp;
+
   assign idma_obi_cfg_req                  = all_periph_obi_req[PeriphiDMA];
   assign all_periph_obi_rsp[PeriphiDMA]    = idma_obi_cfg_rsp;
+
   assign clint_obi_req                     = all_periph_obi_req[PeriphClint];
   assign all_periph_obi_rsp[PeriphClint]   = clint_obi_rsp;
+
   assign bootrom_obi_req                   = all_periph_obi_req[PeriphBootrom];
   assign all_periph_obi_rsp[PeriphBootrom] = bootrom_obi_rsp;
+
   assign socc_obi_req                      = all_periph_obi_req[PeriphiSocc];
   assign all_periph_obi_rsp[PeriphiSocc]   = socc_obi_rsp;
 
@@ -669,13 +680,14 @@ module croc_domain import croc_pkg::*; #(
    socc_on_croc #(
     .ObiCfg      ( SbrObiCfg     ),
     .obi_req_t   ( sbr_obi_req_t ),
-    .obi_rsp_t   ( sbr_obi_rsp_t ),
-    .OBI_ADDRESS_OFFSET(get_periph_start_addr(PeriphiSocc))
+    .obi_rsp_t   ( sbr_obi_rsp_t )
   ) i_socc_on_croc (
     .clk_i (clk_i),
     .rst_ni(rst_ni),
+    
     .obi_req_i(socc_obi_req),
     .obi_rsp_o(socc_obi_rsp),
+
     .hsync_o(vga_hsync_o),
     .vsync_o(vga_vsync_o),
     .color_o(vga_color_o),

@@ -151,7 +151,7 @@ package croc_pkg;
     '{ idx: PeriphGpio,    start_addr: 32'h0300_5000, end_addr: 32'h0300_6000 },
     '{ idx: PeriphTimer,   start_addr: 32'h0300_A000, end_addr: 32'h0300_B000 },
     '{ idx: PeriphiDMA,    start_addr: 32'h0300_B000, end_addr: 32'h0300_C000 },
-    '{ idx: PeriphiSocc,   start_addr: 32'h0400_0000, end_addr: 32'h0500_C000 }
+    '{ idx: PeriphiSocc,   start_addr: 32'h0400_0000, end_addr: 32'h0400_0000 +  32'h4 * (32'h1 << (11 + 2)) }
   };
 
   // +1 for additional OBI error

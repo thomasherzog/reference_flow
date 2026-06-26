@@ -23,13 +23,40 @@ set USER            i_croc_soc/i_user
 set IBEX            $CROC/i_core_wrap.i_ibex
 set SRAM            $CROC/gen_sram_bank
 set JTAG            $CROC/i_dmi_jtag
+
 set SRAM_512x32     gen_512x32xBx1.i_cut
 
 # memory banks
 set sram {\[0\].i_sram/}
 set bank0_sram0 $SRAM$sram$SRAM_512x32
+# evals to : i_croc_soc/i_croc/gen_sram_bank[0].i_sram/gen_512x32xBx1.i_cut
+
 set sram {\[1\].i_sram/}
 set bank1_sram0 $SRAM$sram$SRAM_512x32
+
+# socc on croc 
+set SOCC				$CROC/i_socc_on_croc
+set glyph_sram_name 	/i_glyph_ram.i_ram_muxer.genblk1
+set text_sram_name 		/i_text_ram.i_ram_muxer.genblk1
+
+set sram {\[0\].i_sram/}
+set socconcroc_sram_glyph0 	$SOCC$glyph_sram_name$sram$SRAM_512x32
+set socconcroc_sram_text0 	$SOCC$text_sram_name$sram$SRAM_512x32
+
+set sram {\[1\].i_sram/}
+set socconcroc_sram_glyph1 	$SOCC$glyph_sram_name$sram$SRAM_512x32
+set socconcroc_sram_text1 	$SOCC$text_sram_name$sram$SRAM_512x32
+
+set sram {\[2\].i_sram/}
+set socconcroc_sram_glyph2 	$SOCC$glyph_sram_name$sram$SRAM_512x32
+set socconcroc_sram_text2 	$SOCC$text_sram_name$sram$SRAM_512x32
+
+set sram {\[3\].i_sram/}
+set socconcroc_sram_glyph3 	$SOCC$glyph_sram_name$sram$SRAM_512x32
+set socconcroc_sram_text3 	$SOCC$text_sram_name$sram$SRAM_512x32
+
+
+
 
 # JTAG request and response CDCs
 # Goal: Find the async nets and their source and destination cells

@@ -367,11 +367,10 @@ int main() {
     set_interrupt_enable(1, IRQ_VGA);
     set_global_irq_enable(1);
     vga_set_interrupt_enable(true);
-    
-    wfi();
 
     vga_draw_image();
-    
+
+    wfi();
     wfi();
     wfi();
     

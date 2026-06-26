@@ -32,8 +32,15 @@ set_driving_cell [all_inputs] -lib_cell sg13cmos5l_IOPadOut16mA -pin pad
 ##################
 puts "Clocks..."
 
-# We target 100 MHz
-set TCK_SYS 10.0
+# 50.35 MHz
+set TCK_SYS 19.86    
+
+# 75.525 MHz
+# set TCK_SYS 13.24078 
+
+# 100.700 MHz  
+# set TCK_SYS 9.93048 
+
 create_clock -name clk_sys -period $TCK_SYS [get_ports clk_i]
 
 set TCK_JTG 25.0
@@ -132,3 +139,11 @@ set_input_delay  -min -add_delay -clock clk_sys [ expr $TCK_SYS * 0.10 ] [get_po
 set_input_delay  -max -add_delay -clock clk_sys [ expr $TCK_SYS * 0.30 ] [get_ports uart_rx_i]
 set_output_delay -min -add_delay -clock clk_sys [ expr $TCK_SYS * 0.10 ] [get_ports uart_tx_o]
 set_output_delay -max -add_delay -clock clk_sys [ expr $TCK_SYS * 0.30 ] [get_ports uart_tx_o]
+
+##########
+## VGA  ##
+##########
+puts "VGA..."
+set_output_delay -min -add_delay -clock clk_sys [ expr $TCK_SYS * 0.10 ] [get_ports {vga*}]
+set_output_delay -max -add_delay -clock clk_sys [ expr $TCK_SYS * 0.30 ] [get_ports {vga*}]
+
