@@ -60,7 +60,7 @@ packages:
     - common_cells
     - tech_cells_generic
   socc_on_croc:
-    revision: 12cf5bf814791918e996c740fe1c59134bcdaa7c
+    revision: be4eefc69e65e7da9505661092e8aa02f376ec1a
     version: null
     source:
       Git: https://github.com/mikailgedik/socc_on_croc.git

@@ -18,7 +18,7 @@ dependencies:
   obi_peripherals:      { git: "https://github.com/pulp-platform/obi_peripherals.git",      rev: 21ee04d    } # UART
   idma:                 { git: "https://github.com/pulp-platform/idma.git",                 rev: "__deploy__e618e4d__master" } # master with generated files
   cve2:                 { path: "rtl/cve2" } # a vendor package (no Bender.yml), see below 
-  socc_on_croc:         { git: "https://github.com/mikailgedik/socc_on_croc.git",           rev: "12cf5bf814791918e996c740fe1c59134bcdaa7c" }
+  socc_on_croc:         { git: "https://github.com/mikailgedik/socc_on_croc.git",           rev: "be4eefc69e65e7da9505661092e8aa02f376ec1a" }
 
 sources:
   # Level 0
