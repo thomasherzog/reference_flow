@@ -56,6 +56,8 @@ remove_buffers
 
 utl::report "Repair design"
 repair_design -verbose
+repair_design -verbose
+repair_design -verbose
 
 save_checkpoint 02-01_${proj_name}.pre_place
 
@@ -75,7 +77,7 @@ set_thread_count 8
 
 # Rough placement to get parasitics from steiner-tree estimate so we can run repair_timing
 utl::report "Global Placement (1)"
-global_placement -density 0.40
+global_placement -density 0.35
 report_metrics "02-02_${proj_name}.gpl1"
 report_image "02-02_${proj_name}.gpl1" true true
 save_checkpoint 02-02_${proj_name}.gpl1
@@ -88,11 +90,12 @@ save_checkpoint 02-02_${proj_name}.gpl1_fix
 
 utl::report "Repair setup"
 repair_timing -setup -verbose
+repair_timing -setup -verbose
 save_checkpoint 02-02_${proj_name}.gpl1_repaired
 
 # Actual global placement with routability and timing driven
 utl::report "Global Placement (2)"
-global_placement -density 0.40 \
+global_placement -density 0.35 \
                  -routability_driven \
                  -routability_check_overflow 0.30 \
                  -timing_driven

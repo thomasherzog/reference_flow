@@ -22,8 +22,8 @@ cd ..
 
 # OpenRoad
 
-#cd openroad
+cd openroad
 
 
 
-#cd ..
+cd ..

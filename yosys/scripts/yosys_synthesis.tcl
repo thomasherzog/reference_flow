@@ -54,6 +54,10 @@ yosys setattr -set keep_hierarchy 1 "t:cdc*_dst*$*"
 yosys setattr -set keep_hierarchy 1 "t:sync$*"
 yosys setattr -set keep_hierarchy 1 "t:socc_on_croc$*"
 
+yosys setattr -set keep_hierarchy 1 "t:font_rom0$*"
+yosys setattr -set keep_hierarchy 1 "t:font_rom1$*"
+yosys setattr -set keep_hierarchy 1 "t:font_rom2$*"
+yosys setattr -set keep_hierarchy 1 "t:font_rom3$*"
 
 # blackbox modules (applies the *blackbox* attribute)
 yosys blackbox "t:tc_sram_blackbox$*"

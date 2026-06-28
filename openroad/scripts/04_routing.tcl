@@ -72,7 +72,7 @@ repair_timing -hold -hold_margin 0.1 -verbose -repair_tns 100
 
 utl::report "GRT incremental..."
 # Run to get modified net by DPL
-global_route -start_incremental -allow_congestion
+global_route -start_incremental -allow_congestion -verbose
 
 # Running DPL to fix overlapped instances
 detailed_placement
@@ -104,7 +104,7 @@ detailed_route -output_drc ${report_dir}/04_${proj_name}_route_drc.rpt \
                -drc_report_iter_step 5 \
                -save_guide_updates \
                -clean_patches \
-               -droute_end_iter 35 \
+               -droute_end_iter 63 \
                -verbose 1
 
 utl::report "Saving detailed route"

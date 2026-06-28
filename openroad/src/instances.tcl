@@ -48,11 +48,9 @@ set socconcroc_sram_glyph1 	$SOCC$glyph_sram_name$sram$SRAM_512x32
 set socconcroc_sram_text1 	$SOCC$text_sram_name$sram$SRAM_512x32
 
 set sram {\[2\].i_sram/}
-set socconcroc_sram_glyph2 	$SOCC$glyph_sram_name$sram$SRAM_512x32
 set socconcroc_sram_text2 	$SOCC$text_sram_name$sram$SRAM_512x32
 
 set sram {\[3\].i_sram/}
-set socconcroc_sram_glyph3 	$SOCC$glyph_sram_name$sram$SRAM_512x32
 set socconcroc_sram_text3 	$SOCC$text_sram_name$sram$SRAM_512x32
 
 

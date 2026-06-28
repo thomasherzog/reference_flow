@@ -172,8 +172,10 @@
 ../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/socc_on_croc.sv
 ../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/sync_generator.sv
 ../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/text_ram_wrapper.sv
-../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/font_rom.sv
-../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/glyph_rom.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/font_rom0.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/font_rom1.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/font_rom2.sv
+../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/font_rom3.sv
 ../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/testing/obi_manager.sv
 ../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/testing/obi_tester.sv
 ../.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/target/sim/rtl/socc_on_croc_utils_pkg.sv

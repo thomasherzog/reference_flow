@@ -33,13 +33,16 @@ set_driving_cell [all_inputs] -lib_cell sg13cmos5l_IOPadOut16mA -pin pad
 puts "Clocks..."
 
 # 50.35 MHz
-set TCK_SYS 19.86    
+#set TCK_SYS 19.86    
 
 # 75.525 MHz
-# set TCK_SYS 13.24078 
+set TCK_SYS 13.24078 
 
 # 100.700 MHz  
 # set TCK_SYS 9.93048 
+
+# VGA Clock at 25.175 MHz
+#set TCK_SYS 39.721
 
 create_clock -name clk_sys -period $TCK_SYS [get_ports clk_i]
 
