@@ -3,6 +3,7 @@
 static volatile uint16_t* const VGA_COLOR_PALETTE_BUFFER = (volatile uint16_t*) (VGA_BASE_ADDRESS);
 static volatile uint8_t* const VGA_CONFIG_BUFFER = (volatile uint8_t*) (VGA_BASE_ADDRESS + 0x20);
 static volatile uint8_t* const VGA_INTERRUPT_BUFFER = (volatile uint8_t*) (VGA_BASE_ADDRESS + 0x21);
+static volatile uint8_t* const VGA_BLINK_BUFFER = (volatile uint8_t*) (VGA_BASE_ADDRESS + 0x22);
 static volatile uint16_t* const VGA_TEXT_BUFFER = (volatile uint16_t*) (VGA_BASE_ADDRESS + VGA_RAM_SIZE);
 static volatile uint8_t* const VGA_GLYPH_BUFFER = (volatile uint8_t*) (VGA_BASE_ADDRESS + VGA_RAM_SIZE * 2);
 
@@ -27,10 +28,11 @@ void vga_set_clock_divider(uint8_t divider) {
 }
 
 void vga_set_blink_disable(bool disable_blink) {
-    uint8_t config = *VGA_CONFIG_BUFFER;
-    config &= ~(0x01 << 4);
-    config |= ((disable_blink & 0x01) << 4);
-    *VGA_CONFIG_BUFFER = config;
+    vga_set_blink_value(disable_blink ? 0 : 45);
+}
+
+void vga_set_blink_value(uint8_t value) {
+    *VGA_BLINK_BUFFER = value;
 }
 
 void vga_set_glyph_ram_enable(bool glyph_ram_enable){
@@ -59,6 +61,7 @@ void vga_set_output_enable(bool output_enable){
 void vga_init(void) {
     cursor_x = 0;
     cursor_y = 0;
+    vga_set_clock_divider(1); // divide clk by 1 + 1 = 2
     vga_clear(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
     vga_set_output_enable(true);
     vga_set_blink_disable(true);

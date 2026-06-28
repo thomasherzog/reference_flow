@@ -9,6 +9,7 @@
  * - 0x04000000: Color Palette Buffer (32 bytes, 16 colors × 2 bytes each)
  * - 0x04000020: Configuration Register
  * - 0x04000021: Interrupt Status Register
+ * - 0x04000022: Blink Register
  * - 0x04000000 + RAM_SIZE: Text Buffer (80×30 characters = 4800 bytes)
  * - 0x04000000 + RAM_SIZE×2: Glyph Buffer (256 glyphs × 16 bytes = 4096 bytes)
  * 
@@ -53,7 +54,6 @@
  * Used internally by configuration functions.
  */
 #define VGA_CONFIG_CLK_DIVIDER_SHIFT      0  /**< Clock divider setting (bits 0-3) */
-#define VGA_CONFIG_BLINK_DISABLE_SHIFT    4  /**< Blink disable flag (bit 4) */
 #define VGA_CONFIG_RAM_ENABLE_SHIFT       5  /**< Custom glyph RAM enable (bit 5) */
 #define VGA_CONFIG_INTERRUPT_ENABLE_SHIFT 6  /**< Interrupt enable flag (bit 6) */
 #define VGA_CONFIG_ENABLE_SHIFT           7  /**< VGA output enable flag (bit 7) */
@@ -65,10 +65,17 @@
 void vga_set_clock_divider(uint8_t divider);
 
 /**
- * Enable or disable cursor/text blinking.
+ * Enable or disable cursor/text blinking. Calls vga_set_blink_value with either value=0 or value=45
  * @param disable_blink true to disable blinking, false to enable
  */
 void vga_set_blink_disable(bool disable_blink);
+
+/**
+ * Set blink value. value=0 disables blink, any other value enables blink.
+ * value=30 for example makes 30 non-blink frames, then 30 blink frames, then 30 non-blink-frames etc.
+ * @param value How many frames the blinking takes to toggle
+ */
+void vga_set_blink_value(uint8_t value);
 
 /**
  * Enable or disable custom glyph RAM for custom character sets.
