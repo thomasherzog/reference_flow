@@ -56,20 +56,6 @@ run_cmd() {
 
 
 prepare_logo() {
-    run_cmd "echo [INFO] Preparing logo"
-
-    # customize logo
-    run_cmd "mkdir -p meerkat_work"
-    run_cmd "sed 's/#DATE#/$(date '+%Y-%m-%d')/g' src/logo_chip.svg > meerkat_work/croc_logo.svg"
-    run_cmd "sed -i 's/#HASH#/$(git rev-parse --short HEAD)/g' meerkat_work/croc_logo.svg"
-    run_cmd "sed -i 's|#REPO#|gh.io/$GITHUB_REPOSITORY|g' meerkat_work/croc_logo.svg"
-
-    run_cmd "inkscape meerkat_work/croc_logo.svg \
-        -w 660 \
-        -h 660 \
-        -o meerkat_work/croc_logo.png \
-        > /dev/null 2>&1"
-
     run_cmd "convert meerkat_work/croc_logo.png \
         -dither FloydSteinberg \
         -remap pattern:gray50 \
