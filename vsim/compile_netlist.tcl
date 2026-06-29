@@ -367,11 +367,14 @@ if {[catch { vlog -incr -sv \
     "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/glyph_ram_wrapper.sv" \
     "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/glyph_rom_wrapper.sv" \
     "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/obi_sub.sv" \
+    "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/ram_muxer.sv" \
     "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/socc_on_croc.sv" \
     "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/sync_generator.sv" \
     "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/text_ram_wrapper.sv" \
-    "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/font_rom.sv" \
-    "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/glyph_rom.sv" \
+    "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/font_rom0.sv" \
+    "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/font_rom1.sv" \
+    "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/font_rom2.sv" \
+    "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/font_rom3.sv" \
 }]} {return 1}
 
 if {[catch { vlog -incr -sv \
@@ -385,6 +388,7 @@ if {[catch { vlog -incr -sv \
     "+define+SIMULATION" \
     "+incdir+$ROOT/rtl/common_cells/include" \
     "+incdir+$ROOT/rtl/obi/include" \
+    "+incdir+$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/generated/include" \
     "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/testing/obi_manager.sv" \
     "$ROOT/.bender/git/checkouts/socc_on_croc-86a23edf71b97bbc/rtl/testing/obi_tester.sv" \
 }]} {return 1}
